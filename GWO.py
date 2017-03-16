@@ -12,9 +12,8 @@ from solution import solution
 import time
 
 
-    
 
-def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter):
+def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter, Positions = None ):
     
     
     #Max_iter=1000
@@ -22,6 +21,7 @@ def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter):
     #ub=100
     #dim=30  
     #SearchAgents_no=5
+
     
     # initialize alpha, beta, and delta_pos
     Alpha_pos=numpy.zeros(dim)
@@ -34,8 +34,12 @@ def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter):
     Delta_score=float("inf")
     
     #Initialize the positions of search agents
-    Positions=numpy.random.uniform(0,1,(SearchAgents_no,dim)) *(ub-lb)+lb
-    
+    if not Positions is None:
+        Positions=numpy.random.uniform(0,1,(SearchAgents_no,dim)) *(ub-lb)+lb
+
+    print Positions
+
+
     Convergence_curve=numpy.zeros(Max_iter)
     s=solution()
 
