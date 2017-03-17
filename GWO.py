@@ -13,7 +13,7 @@ import time
 
 
 
-def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter, Positions = None, **kwargs ):
+def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter, Positions = None, fopt=float("-inf") , **kwargs ):
     
     
     #Max_iter=1000
@@ -34,8 +34,8 @@ def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter, Positions = None, **kwargs ):
     Delta_score=float("inf")
     
     #Initialize the positions of search agents
-    if not Positions is None:
-        Positions=numpy.random.uniform(0,1,(SearchAgents_no,dim)) *(ub-lb)+lb
+    #if not Positions is None:
+    #    Positions=numpy.random.uniform(0,1,(SearchAgents_no,dim)) *(ub-lb)+lb
 
 
 
@@ -54,9 +54,13 @@ def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter, Positions = None, **kwargs ):
             # Return back the search agents that go beyond the boundaries of the search space
             Positions[i,:]=numpy.clip(Positions[i,:], lb, ub)
 
+
             # Calculate objective function for each search agent
-            fitness=objf(Positions[i,:])
-            
+            scores = objf(Positions[i,:])
+            fitness = objf(Positions[i, :])
+            #print Positions
+            #print scores
+
             # Update Alpha, Beta, and Delta
             if fitness<Alpha_score :
                 Alpha_score=fitness; # Update alpha
