@@ -13,7 +13,7 @@ import time
 
 
 
-def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter, Positions = None ):
+def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter, Positions = None, **kwargs ):
     
     
     #Max_iter=1000
@@ -37,10 +37,9 @@ def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter, Positions = None ):
     if not Positions is None:
         Positions=numpy.random.uniform(0,1,(SearchAgents_no,dim)) *(ub-lb)+lb
 
-    print Positions
 
 
-    Convergence_curve=numpy.zeros(Max_iter)
+    Convergence_curve=[]
     s=solution()
 
      # Loop counter
@@ -114,17 +113,20 @@ def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter, Positions = None ):
             
         
         
-        Convergence_curve[l]=Alpha_score;
+        Convergence_curve.append((l, Alpha_score, list(Alpha_pos) ) );
 
-        if (l%1==0):
+        if (l%1==0) and 'verbose' in kwargs:
                print(['At iteration '+ str(l)+ ' the best fitness is '+ str(Alpha_score)]);
     
-    timerEnd=time.time()  
+    timerEnd=time.time()
+    s.best = Alpha_score
+    s.bestIndividual = list(Alpha_pos)
     s.endTime=time.strftime("%Y-%m-%d-%H-%M-%S")
     s.executionTime=timerEnd-timerStart
     s.convergence=Convergence_curve
     s.optimizer="GWO"
     s.objfname=objf.__name__
+    s.pop = list(Positions)
     
     
     
