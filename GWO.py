@@ -56,10 +56,11 @@ def GWO(objf,lb,ub,dim,SearchAgents_no,Max_iter, Positions = None, fopt=float("-
 
 
             # Calculate objective function for each search agent
-            scores = objf(Positions[i,:])
+            #score = objf(Positions[i,:])
             fitness = objf(Positions[i, :])
-            #print Positions
-            #print scores
+            #score =   abs(fitness - fopt)
+            #print fitness, Positions[i, :]
+            #print score, fitness
 
             # Update Alpha, Beta, and Delta
             if fitness<Alpha_score :

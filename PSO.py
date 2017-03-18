@@ -8,7 +8,7 @@ Created on Sun May 15 22:37:00 2016
 import random
 import numpy
 import math
-from colorama import Fore, Back, Style
+#from colorama import Fore, Back, Style
 from solution import solution
 import time
 
@@ -17,7 +17,7 @@ import time
 
 
 
-def PSO(objf,lb,ub,dim,PopSize,iters):
+def PSO(objf,lb,ub,dim,PopSize,iters, pos = None, fopt=float("-inf") , **kwargs ):
 
     # PSO parameters
     
@@ -48,7 +48,7 @@ def PSO(objf,lb,ub,dim,PopSize,iters):
     
     gBestScore=float("inf")
     
-    pos=numpy.random.uniform(0,1,(PopSize,dim)) *(ub-lb)+lb
+    #pos=numpy.random.uniform(0,1,(PopSize,dim)) *(ub-lb)+lb
     
     convergence_curve=numpy.zeros(iters)
     
@@ -92,14 +92,16 @@ def PSO(objf,lb,ub,dim,PopSize,iters):
         
         convergence_curve[l]=gBestScore
       
-        if (l%1==0):
+        if (l%1==0) and 'verbose' in kwargs:
                print(['At iteration '+ str(l+1)+ ' the best fitness is '+ str(gBestScore)]);
-    timerEnd=time.time()  
+    timerEnd=time.time()
+    s.best=gBestScore
     s.endTime=time.strftime("%Y-%m-%d-%H-%M-%S")
     s.executionTime=timerEnd-timerStart
-    s.convergence=convergence_curve
+    s.convergence=list(convergence_curve)
     s.optimizer="PSO"
     s.objfname=objf.__name__
+    s.pop = list(pos)
 
     return s
          
