@@ -90,7 +90,8 @@ def PSO(objf,lb,ub,dim,PopSize,iters, pos = None, fopt=float("-inf") , **kwargs 
                             
                 pos[i,j]=pos[i,j]+vel[i,j]
         
-        convergence_curve[l]=gBestScore
+        #convergence_curve[l]=gBestScore
+        convergence_curve.append((l, gBestScore, list(gBest)));
       
         if (l%1==0) and 'verbose' in kwargs:
                print(['At iteration '+ str(l+1)+ ' the best fitness is '+ str(gBestScore)]);
