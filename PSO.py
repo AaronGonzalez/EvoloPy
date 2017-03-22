@@ -50,7 +50,7 @@ def PSO(objf,lb,ub,dim,PopSize,iters, pos = None, fopt=float("-inf") , **kwargs 
     
     #pos=numpy.random.uniform(0,1,(PopSize,dim)) *(ub-lb)+lb
     
-    convergence_curve=numpy.zeros(iters)
+    convergence_curve=[]
     
     ############################################
     print("PSO is optimizing  \""+objf.__name__+"\"")    
